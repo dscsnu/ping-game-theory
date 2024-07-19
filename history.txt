@@ -1,0 +1,14 @@
+[
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+    { opponent: 'split', you: 'steal' },
+]
