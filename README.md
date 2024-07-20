@@ -6,8 +6,6 @@ A compete with code style tournament where each player can submit their strategy
 
 Please read the whole documentation before just using this. 😛
 
-PS: Check the pre-existing strategies for other examples
-
 1. Clone this repository
 2. Install requirements
 3. Create a python file under strategies folder
@@ -127,6 +125,8 @@ Methods:
 # Tutorial
 
 Now that we understand all types. Lets create a very simple strategy that simply steals if the opponent steals on the past round. This strategy is also called titfortat.
+
+PS: Check the pre-existing strategies for other examples
 
 Example:
 
