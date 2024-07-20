@@ -36,7 +36,7 @@ def evaluate_score(move1: Move, move2: Move) -> Tuple[int, int]:
         return (0, 10)
     elif move1 == Move.STEAL and move2 == Move.SPLIT:
         return (10, 0)
-    else:
+    elif move1 == Move.STEAL and move2 == Move.STEAL:
         return (3, 3)
 
 
