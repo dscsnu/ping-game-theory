@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import List, Tuple
 import pandas as pd
 from itertools import combinations_with_replacement
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from utils.types import Strategy, History, HistoryEntry, Move
 
@@ -36,7 +38,7 @@ def evaluate_score(move1: Move, move2: Move) -> Tuple[int, int]:
     else:
         return (3, 3)
 
-def dillema(strategy1: Strategy, strategy2: Strategy, num_rounds:int = 200) -> Tuple[int, int]:
+def dillema(strategy1: Strategy, strategy2: Strategy, num_rounds:int = 100) -> Tuple[int, int]:
     history1: List[HistoryEntry] = []
     history2: List[HistoryEntry] = []
     score1: int = 0
@@ -61,9 +63,8 @@ def dillema(strategy1: Strategy, strategy2: Strategy, num_rounds:int = 200) -> T
 
 
 if __name__ == '__main__':
-    num_rounds = 1000
+    num_rounds = 10000
     strategies = load_strategies()
-    num_strategies = len(strategies)
 
     df = pd.DataFrame(index=[s.name for s in strategies], columns=[s.name for s in strategies])
 
@@ -78,10 +79,31 @@ if __name__ == '__main__':
 
     print(f'Number of rounds: {num_rounds}')
 
+    total_scores = df.sum(axis=1)
+    df['Total'] = total_scores
+
     print(df)
-
-    # df.to_csv('strategy_results.csv')
-
-    total_scores = df.sum()
     print("\nTotal scores:")
     print(total_scores.sort_values(ascending=False))
+
+    fig, ax = plt.subplots(figsize=(12, 10))
+
+    ax.axis('off')
+
+    table = ax.table(
+        cellText=df.values,
+        rowLabels=df.index,
+        colLabels=df.columns,
+        cellLoc='center',
+        loc='center'
+    )
+
+    table.auto_set_font_size(False)
+    table.set_fontsize(9)
+
+    table.scale(1, 1.5)
+
+    plt.title(f"Dilema Results (Number of rounds: {num_rounds})")
+    plt.tight_layout()
+    plt.savefig('results.png', dpi=300, bbox_inches='tight')
+    plt.close()

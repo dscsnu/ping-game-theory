@@ -10,4 +10,4 @@ class Strategy:
         return Move.SPLIT
     
     def turn(self, history: History) -> Move:
-        return Move.STEAL
+        return Move.SPLIT

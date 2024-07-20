@@ -8,5 +8,5 @@ class Strategy:
     def begin(self) -> Move:
         return random.choice([Move.SPLIT, Move.STEAL])
     
-    def turn(self, history):
+    def turn(self, history:History) -> Move:
         return random.choice([Move.SPLIT, Move.STEAL])
