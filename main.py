@@ -13,7 +13,7 @@ def load_strategies() -> List[Strategy]:
     strategies: List[Strategy] = []
     strategies_path = Path("./strategies")
 
-    for filename in os.listdir(Path("./strategies")):
+    for filename in os.listdir(strategies_path):
         if filename.endswith(".py"):
             module_name = filename[:-3]
             file_path = strategies_path / filename
