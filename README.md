@@ -28,6 +28,7 @@ class Strategy:
 
     def turn(self, history: History) -> Move:
         # Logic Here
+        pass
 ```
 
 5. Run the main file, ensure no errors occur.
