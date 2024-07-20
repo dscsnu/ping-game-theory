@@ -34,7 +34,7 @@ class Strategy:
 
 5. Run the main file, ensure no errors occur.
 
-# The Dilema
+# The Dilemma
 
 You have been invited to a compete against other people for points. At a time you only face off against one other person. Each showdown goes for a predetermined number of rounds.
 
@@ -42,9 +42,9 @@ Each round, both you and your opponent have two options. SPLIT or STEAL.
 
 1. Both of you choose to SPLIT -> Both of you get 5 points
 2. Both of you choose to STEAL -> Both of you get 3 points
-3. One of you chooses to SPLIT while the other chooses to STEAL -> The one who chose to steal gtes 10 points leaving the other with 0.
+3. One of you chooses to SPLIT while the other chooses to STEAL -> The one who chose to steal gets 10 points leaving the other with 0.
 
-The catch? You will be facing off using code. Each player in the dilema will write a strategy that determines their decision to SPLIT or STEAL.
+The catch? You will be facing off using code. Each player in the dilemma will write a strategy that determines their decision to SPLIT or STEAL.
 
 Each strategy will face off against every other strategy and a copy of themselves.
 
