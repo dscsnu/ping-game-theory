@@ -1,10 +1,11 @@
 # import random
 from utils.types import History, Move
 
+
 class Strategy:
 
     def __init__(self):
-        self.name = 'titfortwotat'
+        self.name = "titfortwotat"
 
     def begin(self) -> Move:
         return Move.SPLIT
