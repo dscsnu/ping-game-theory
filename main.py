@@ -76,7 +76,7 @@ if __name__ == '__main__':
         score1, _ = dillema(strategy, strategy, num_rounds)
         df.at[strategy.name, strategy.name] = score1
 
-    print(f'Number of rounds: {num_rounds}\n')
+    print(f'Number of rounds: {num_rounds}')
 
     print(df)
 
