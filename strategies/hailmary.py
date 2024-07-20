@@ -1,7 +1,3 @@
-import math
-import numpy
-import random
-
 from utils.types import History, Move
 
 class Strategy:
