@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     table.scale(1, 1.5)
 
-    plt.title(f"Dilema Results (Number of rounds: {num_rounds})")
+    plt.title(f"Dilemma Results (Number of rounds: {num_rounds})")
     plt.tight_layout()
     plt.savefig("results.png", dpi=300, bbox_inches="tight")
     plt.close()
