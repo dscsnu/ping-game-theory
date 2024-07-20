@@ -21,7 +21,24 @@ class Strategy:
         self.name: str = "sample"
 
     def begin(self) -> Move:
+        """
+            Logic for the first move of any showdown.
+            Is only run once on the initial run.
+
+            return
+                `Move`
+        """
         return Move.SPLIT
 
     def turn(self, history: History) -> Move:
+        """
+            Logic for any move in the showdown after the first move.
+            Is run every time except on the initial run.
+
+            arguments
+                `history`: `History`
+        
+            return
+                `Move`
+        """
         return Move.SPLIT
