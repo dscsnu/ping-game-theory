@@ -60,8 +60,8 @@ Please read this and understand it well before proceeding. Ask a helper if you h
 
 An enumeration respresenting the possible moves a player can make in the game.
 Members:
-    - `SPLIT`
-    - `STEAL`
+    1. `SPLIT`
+    2. `STEAL`
 
 Example:
 
@@ -78,8 +78,8 @@ else:
 
 A named tuple representing a single entry in the games history. It gives you access to your and your opponents moves.
 Attributes:
-    - `opponent` (Move)
-    - `you` (Move)
+    1. `opponent` (Move)
+    2. `you` (Move)
 
 You can only read from `HistoryEntry` objects.
 Example:
@@ -119,12 +119,12 @@ To make decisions you also get access to the following python modules (will prob
 
 Attributes:
 
-- `name` (str): The name of the strategy
+1. `name` (str): The name of the strategy
 
 Methods:
 
-- `begin(self) -> Move`: Defines the move made by the strategy at the beginning of the game. It is called only once that the beginning of each dilemma. It has to return a Move object
-- `turn(self, history: History) -> Move`: Defines the move to make based on the game's history. It is called every time other than the beginning of each dilemma and gives you access to all moves made by you and your opponent throughout the game. It has to return a Move object
+1. `begin(self) -> Move`: Defines the move made by the strategy at the beginning of the game. It is called only once that the beginning of each dilemma. It has to return a Move object
+2. `turn(self, history: History) -> Move`: Defines the move to make based on the game's history. It is called every time other than the beginning of each dilemma and gives you access to all moves made by you and your opponent throughout the game. It has to return a Move object
 
 # Tutorial
 
