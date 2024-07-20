@@ -1,4 +1,5 @@
 import random
+from utils.types import History, Move
 
 class Strategy:
 
@@ -6,20 +7,20 @@ class Strategy:
         self.name = 'dumbass'
 
     def begin(self):
-        return 'split'
+        return Move.SPLIT
             
     
-    def turn(self, history):
+    def turn(self, history: History):
         y=0
         if len(history)>3:
             for i in range(3):
-                if history[-i-1]["opponent"] =='steal':
+                if history[-i-1].opponent == Move.STEAL:
                     y+=1
             if y>=2:    
-                return 'steal'
+                return Move.STEAL
             else:
-                return 'split'
+                return Move.SPLIT
         else:
             if y < 2:
-                return random.choice(['split', 'steal'])
-            return 'split'
+                return random.choice([Move.SPLIT, Move.STEAL])
+            return Move.SPLIT

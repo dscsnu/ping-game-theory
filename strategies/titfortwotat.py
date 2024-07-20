@@ -1,21 +1,19 @@
 # import random
-SPLIT = "split"
-STEAL = "steal"
-
+from utils.types import History, Move
 
 class Strategy:
 
     def __init__(self):
-        self.name = 'Tit for two tat'
+        self.name = 'titfortwotat'
 
-    def begin(self):
-        return 'split'
+    def begin(self) -> Move:
+        return Move.SPLIT
 
-    def turn(self, history):
+    def turn(self, history: History) -> Move:
         if len(history) < 2:
-            return SPLIT
-        last, second_last = history[-1]["opponent"], history[-2]["opponent"]
+            return Move.SPLIT
+        last, second_last = history[-1].opponent, history[-2].opponent
 
-        if last == STEAL and second_last == STEAL:
-            return STEAL
-        return SPLIT
+        if last == Move.STEAL and second_last == Move.STEAL:
+            return Move.STEAL
+        return Move.SPLIT

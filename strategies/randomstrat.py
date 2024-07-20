@@ -1,11 +1,12 @@
 import random
+from utils.types import History, Move
 
 class Strategy:
     def __init__(self):
         self.name = 'random'
     
-    def begin(self):
-        return random.choice(['split', 'steal'])
+    def begin(self) -> Move:
+        return random.choice([Move.SPLIT, Move.STEAL])
     
     def turn(self, history):
-        return random.choice(['split', 'steal'])
+        return random.choice([Move.SPLIT, Move.STEAL])

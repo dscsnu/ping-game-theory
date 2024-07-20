@@ -1,76 +1,87 @@
 import os
 import importlib.util
+from pathlib import Path
+from typing import List, Tuple
+import pandas as pd
+from itertools import combinations_with_replacement
 
-def load_strategies(strategy_folder):
-    strategies = []
+from utils.types import Strategy, History, HistoryEntry, Move
 
-    for filename in os.listdir(strategy_folder):
-        if filename.endswith(".py"):
+def load_strategies() -> List[Strategy]:
+    strategies: List[Strategy] = []
+    strategies_path = Path('./strategies')
+
+    for filename in os.listdir(Path('./strategies')):
+        if filename.endswith('.py'):
             module_name = filename[:-3]
-            file_path = os.path.join(strategy_folder, filename)
+            file_path = strategies_path / filename
 
             spec = importlib.util.spec_from_file_location(module_name, file_path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
 
             if hasattr(module, 'Strategy'):
-                strategies.append(module.Strategy())
+                strategy_class: type = getattr(module, 'Strategy')
+                strategies.append(strategy_class())
 
     return strategies
 
-def evaluate_scores(moves):
-    scores = {}
-    
-    for move in moves:
-        for player in move:
-            if player not in scores:
-                scores[player] = 0
-        
-        player1, player2 = list(move.keys())
-        move1, move2 = move[player1], move[player2]
-        
-        if move1 == 'split' and move2 == 'split':
-            scores[player1] += 5
-            scores[player2] += 5
-        elif move1 == 'split' and move2 == 'steal':
-            scores[player2] += 10
-        elif move1 == 'steal' and move2 == 'split':
-            scores[player1] += 10
-        elif move1 == 'steal' and move2 == 'steal':
-            scores[player1] += 3
-            scores[player2] += 3
-    
-    return scores
+def evaluate_score(move1: Move, move2: Move) -> Tuple[int, int]:
+    if move1 == Move.SPLIT and move2 == Move.SPLIT:
+        return (5, 5)
+    elif move1 == Move.SPLIT and move2 == Move.STEAL:
+        return (0, 10)
+    elif move1 == Move.STEAL and move2 == Move.SPLIT:
+        return (10, 0)
+    else:
+        return (3, 3)
 
-if __name__ == "__main__":
-    strategy_folder = 'strategies'
-    strategies = load_strategies(strategy_folder)
+def dillema(strategy1: Strategy, strategy2: Strategy, num_rounds:int = 200) -> Tuple[int, int]:
+    history1: List[HistoryEntry] = []
+    history2: List[HistoryEntry] = []
+    score1: int = 0
+    score2: int = 0
 
-    for index1, strategy1 in enumerate(strategies):
-        for index2 in range(index1+1, len(strategies)):
-            strategy2 = strategies[index2]
-            name1 = strategy1.name
-            name2 = strategy2.name
-            
-            start1 = strategy1.begin()
-            start2 = strategy2.begin()
-            history1 = [{ 'opponent': start2, 'you': start1 }]
-            history2 = [{ 'opponent': start1, 'you': start2 }]
-            
-            for i in range(20000):
-                move1 = strategy1.turn(history1)
-                move2 = strategy2.turn(history2)
-                history1.append({ 'opponent': move2, 'you': move1 })
-                history2.append({ 'opponent': move1, 'you': move2 })
+    for _ in range(num_rounds):
+        if _ == 0:
+            move1 = strategy1.begin()
+            move2 = strategy2.begin()
+        else:
+            move1 = strategy1.turn(tuple(history1))
+            move2 = strategy2.turn(tuple(history2))
 
-            compiled = []
-    
-            for i in history1:
-                compiled.append(
-                    {
-                        name1: i.get('you'),
-                        name2: i.get('opponent')
-                    }
-                )
-            print(evaluate_scores(compiled))
-            
+        history1.append(HistoryEntry(opponent=move2, you=move1))
+        history2.append(HistoryEntry(opponent=move1, you=move2))
+
+        round_score1, round_score2 = evaluate_score(move1, move2)
+        score1 += round_score1
+        score2 += round_score2
+
+    return (score1, score2)
+
+
+if __name__ == '__main__':
+    num_rounds = 1000
+    strategies = load_strategies()
+    num_strategies = len(strategies)
+
+    df = pd.DataFrame(index=[s.name for s in strategies], columns=[s.name for s in strategies])
+
+    for strategy1, strategy2 in combinations_with_replacement(strategies, 2):
+        score1, score2 = dillema(strategy1, strategy2, num_rounds)
+        df.at[strategy1.name, strategy2.name] = score1
+        df.at[strategy2.name, strategy1.name] = score2
+
+    for strategy in strategies:
+        score1, _ = dillema(strategy, strategy, num_rounds)
+        df.at[strategy.name, strategy.name] = score1
+
+    print(f'Number of rounds: {num_rounds}\n')
+
+    print(df)
+
+    # df.to_csv('strategy_results.csv')
+
+    total_scores = df.sum()
+    print("\nTotal scores:")
+    print(total_scores.sort_values(ascending=False))
