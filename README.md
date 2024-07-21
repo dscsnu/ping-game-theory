@@ -39,9 +39,9 @@ You have been invited to a compete against other people for points. At a time yo
 
 Each round, both you and your opponent have two options. SPLIT or STEAL.
 
-1. Both of you choose to SPLIT -> Both of you get 5 points
-2. Both of you choose to STEAL -> Both of you get 3 points
-3. One of you chooses to SPLIT while the other chooses to STEAL -> The one who chose to steal gets 10 points leaving the other with 0.
+1. Both of you choose to SPLIT -> Both of you get 3 points
+2. Both of you choose to STEAL -> Both of you get 0 points
+3. One of you chooses to SPLIT while the other chooses to STEAL -> The one who chose to steal gets 5 points leaving the other with 0.
 
 The catch? You will be facing off using code. Each player in the dilemma will write a strategy that determines their decision to SPLIT or STEAL.
 
@@ -59,6 +59,7 @@ Please read this and understand it well before proceeding. Ask a helper if you h
 
 An enumeration respresenting the possible moves a player can make in the game.
 Members:
+
 - `SPLIT`
 - `STEAL`
 
@@ -77,6 +78,7 @@ else:
 
 A named tuple representing a single entry in the games history. It gives you access to your and your opponents moves.
 Attributes:
+
 - `opponent` (Move)
 - `you` (Move)
 
@@ -117,9 +119,11 @@ To make decisions you also get access to the following python modules (will prob
 3. numpy
 
 Attributes:
+
 - `name` (str): The name of the strategy
 
 Methods:
+
 - `begin(self) -> Move`: Defines the move made by the strategy at the beginning of the game. It is called only once that the beginning of each dilemma. It has to return a Move object
 - `turn(self, history: History) -> Move`: Defines the move to make based on the game's history. It is called every time other than the beginning of each dilemma and gives you access to all moves made by you and your opponent throughout the game. It has to return a Move object
 
@@ -163,7 +167,7 @@ class Strategy:
 
             arguments
                 history: History
-        
+      
             return
                 Move
         """

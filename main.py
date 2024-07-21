@@ -31,13 +31,13 @@ def load_strategies() -> List[Strategy]:
 
 def evaluate_score(move1: Move, move2: Move) -> Tuple[int, int]:
     if move1 == Move.SPLIT and move2 == Move.SPLIT:
-        return (5, 5)
-    elif move1 == Move.SPLIT and move2 == Move.STEAL:
-        return (0, 10)
-    elif move1 == Move.STEAL and move2 == Move.SPLIT:
-        return (10, 0)
-    elif move1 == Move.STEAL and move2 == Move.STEAL:
         return (3, 3)
+    elif move1 == Move.SPLIT and move2 == Move.STEAL:
+        return (0, 5)
+    elif move1 == Move.STEAL and move2 == Move.SPLIT:
+        return (5, 0)
+    elif move1 == Move.STEAL and move2 == Move.STEAL:
+        return (0, 0)
 
 
 def dillema(
