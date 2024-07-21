@@ -21,6 +21,7 @@ from utils.types import History, Move
 class Strategy:
     def __init__(self):
         self.name = ''
+	self.description = ''
   
     def begin(self) -> Move:
         # Logic Here
@@ -110,7 +111,7 @@ last_move_you: Move = last_entry.you
 
 ## 4. Strategy
 
-A base class representing your strategy. It defines two how a player makes their moves based on the game's history.
+A base class representing your strategy. It defines how a player makes their moves based on the game's history.
 
 To make decisions you also get access to the following python modules (will probably increase in the future):
 
@@ -121,6 +122,7 @@ To make decisions you also get access to the following python modules (will prob
 Attributes:
 
 - `name` (str): The name of the strategy
+- `description` (str): A short description of your strategy. Try explaining your algorithm
 
 Methods:
 
@@ -147,6 +149,7 @@ class Strategy:
     def __init__(self):
         self.name = 'titfortat'
         # The name of your strategy
+	self.description = 'steals only if the opponent steals, splits everytime else'
   
     def begin(self) -> Move:
         """
@@ -167,7 +170,7 @@ class Strategy:
 
             arguments
                 history: History
-      
+  
             return
                 Move
         """
@@ -203,6 +206,7 @@ from utils.types import History, Move
 class Strategy:
     def __init__(self):
         self.name = 'random'
+	self.description = 'random 😛'
   
     def begin(self) -> Move:
         return random.choice([Move.SPLIT, Move.STEAL])
