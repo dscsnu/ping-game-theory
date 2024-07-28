@@ -1,4 +1,5 @@
 import os
+import ast
 import time
 import random
 import importlib.util
@@ -11,6 +12,13 @@ from utils.types import Move, Strategy, History, HistoryEntry
 def load_strategy(filename: str) -> Any:
     strategies_path = Path("./strategies")
     file_path = strategies_path / filename
+
+    with open(file_path, 'r') as file:
+        tree = ast.parse(file.read())
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == 'print':
+                raise ValueError(f"Print statement found in {filename}. Print statements are not allowed in strategy files.")
+
     spec = importlib.util.spec_from_file_location(filename[:-3], file_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -58,20 +66,26 @@ def run_dilemma(strategy1: Strategy, strategy2: Strategy, num_rounds: int) -> Tu
     return score1, score2
 
 def main() -> None:
-    num_rounds: int = 50000
-    timeout: int = 60
+    num_rounds: int = 1_000_000
+    timeout: int = 30 * 60  # 30 minutes in seconds
 
     try:
+        # Find the strategy file in the strategies folder
         strategy_file = next(file for file in os.listdir("./strategies") if file.endswith(".py") and file != "__init__.py")
-        StrategyClass = load_strategy(strategy_file)
-        
+
+        try:
+            StrategyClass = load_strategy(strategy_file)
+        except ValueError as e:
+            print(f"Error in strategy file: {str(e)}")
+            return
+
         test_strategy = StrategyClass()
         random_strategy = RandomStrategy()
 
         start_time = time.time()
-        
+
         run_dilemma(test_strategy, random_strategy, num_rounds)
-        
+
         end_time = time.time()
         total_time = end_time - start_time
 
