@@ -40,7 +40,7 @@ You have been invited to a compete against other people for points. At a time yo
 
 Each round, both you and your opponent have two options. SPLIT or STEAL.
 
-1. Both of you choose to SPLIT -> Both of you get 3 points
+1. Both of you choose to SPLIT -> Both of you get 5 points
 2. Both of you choose to STEAL -> Both of you get 0 points
 3. One of you chooses to SPLIT while the other chooses to STEAL -> The one who chose to steal gets 5 points leaving the other with 0.
 
