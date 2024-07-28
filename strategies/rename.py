@@ -18,7 +18,7 @@ class Strategy:
                 Move
         """
         
-        # Logic Here
+        return Move.SPLIT
         pass
 
     def turn(self, history: History) -> Move:
@@ -32,6 +32,4 @@ class Strategy:
             return
                 Move
         """
-        
-        # Logic Here
-        pass
+        return Move.SPLIT
