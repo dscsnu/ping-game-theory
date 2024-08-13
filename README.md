@@ -95,7 +95,7 @@ your_move: Move = entry.you
 
 ## 3. History
 
-A type alias for `HistoryEntry` objects, representing the game's history as an immutable sequence.
+An immutable array of `HistoryEntry` objects, representing the game's history.
 
 You can only read from the `History` object.
 Example:
